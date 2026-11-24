@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html, body, #root { background: #ffffff; }
+body { color: #0F172A; font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+*:focus-visible { outline: 2px solid #2563EB; outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+  .card { @apply rounded-xl border border-line bg-white shadow-card; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors min-h-[40px]; }
+  .btn-primary { @apply btn bg-brand text-white hover:bg-brand-dark; }
+  .btn-ghost { @apply btn border border-line bg-white text-ink hover:bg-soft; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold text-muted hover:bg-soft; }
+  .chip-on { @apply border-brand bg-brand-tint text-brand; }
+  .h2 { @apply text-2xl font-extrabold tracking-tight text-ink sm:text-3xl; }
+  .prose-g p { @apply mb-3 leading-relaxed text-muted; }
+  .prose-g strong { @apply text-ink; }
+  .prose-g code, code.inline { @apply rounded bg-soft px-1.5 py-0.5 font-mono text-[0.85em] text-violet border border-line; }
+  .input { @apply w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink placeholder:text-slate-400; }
+  .table-wrap { @apply overflow-x-auto rounded-xl border border-line; }
+  .table-wrap table { @apply w-full min-w-[640px] text-left text-sm; }
+  .table-wrap th { @apply bg-soft px-4 py-3 font-bold text-ink; }
+  .table-wrap td { @apply border-t border-line px-4 py-3 align-top text-muted; }
+}
+
+.term { background: #0B1220; color: #E2E8F0; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+@media print {
+  header, footer, nav, .no-print { display: none !important; }
+  body { background: #fff; }
+  .card { box-shadow: none; break-inside: avoid; }
+  .term, pre { background: #F1F5F9 !important; color: #0F172A !important; border: 1px solid #CBD5E1; white-space: pre-wrap; }
+  a[href]:after { content: none !important; }
+}

@@ -1,0 +1,26 @@
+export interface Compare { id: string; title: string; summary: string; cols: string[]; rows: string[][]; example: string; diagram: string }
+
+export const comparisons: Compare[] = [
+  { id: 'reset-restore-revert', title: 'git reset vs git restore vs git revert', summary: 'All three undo something, but at different levels. restore fixes files, reset moves a branch pointer, revert adds a new commit that cancels an old one.',
+    cols: ['', 'git restore', 'git reset', 'git revert'],
+    rows: [['What it changes', 'Files in the working tree and/or index', 'Where the branch points (and optionally index and working tree)', 'Adds a new commit that reverses an earlier commit'], ['Rewrites history?', 'No', 'Yes, for commits it drops from the branch', 'No'], ['Safe on shared branches?', 'Yes (local files only)', 'No, after others have pulled', 'Yes'], ['Typical use', 'Discard edits or unstage a file', 'Undo local commits', 'Undo a published commit'], ['Example', 'git restore app.js', 'git reset --soft HEAD~1', 'git revert 3f2a9c1']],
+    example: 'git restore --staged app.js   # unstage\ngit reset --soft HEAD~1       # undo last local commit, keep changes\ngit revert HEAD               # undo last commit with a new commit', diagram: 'restore: files only\nreset:   branch pointer moves back\nrevert:  A - B - C - [C undone]' },
+  { id: 'fetch-pull', title: 'git fetch vs git pull', summary: 'fetch only downloads. pull downloads and then integrates into your current branch.',
+    cols: ['', 'git fetch', 'git pull'], rows: [['Downloads new commits', 'Yes', 'Yes'], ['Changes your branch and files', 'No', 'Yes (merge or rebase)'], ['Risk of conflicts', 'None', 'Possible'], ['When to use', 'To look before integrating', 'To update quickly'], ['Equivalent', 'n/a', 'git fetch + git merge (or rebase)']],
+    example: 'git fetch origin\ngit log --oneline HEAD..origin/main\ngit merge origin/main', diagram: 'fetch: remote -> origin/main\npull:  remote -> origin/main -> your branch' },
+  { id: 'merge-rebase', title: 'git merge vs git rebase', summary: 'Both integrate changes. merge keeps history as it happened; rebase rewrites your commits on a new base for a linear history.',
+    cols: ['', 'git merge', 'git rebase'], rows: [['History shape', 'Branching, with merge commits', 'Linear'], ['Rewrites commits', 'No', 'Yes (new commit IDs)'], ['Safe on shared branches', 'Yes', 'No, only for unpublished commits'], ['Conflict handling', 'Once, in the merge commit', 'Possibly once per replayed commit'], ['Example', 'git merge main', 'git rebase main']],
+    example: 'git switch feature\ngit merge main      # keep history\n# or\ngit rebase main     # replay commits', diagram: 'merge:  A-B-C-----M\n         \\     /\n          D-E-\nrebase: A-B-C-D\'-E\'' },
+  { id: 'switch-checkout', title: 'git switch vs git checkout', summary: 'checkout does several jobs. switch (Git 2.23+) handles branches only, and restore handles files.',
+    cols: ['', 'git switch', 'git checkout'], rows: [['Switch branches', 'Yes', 'Yes'], ['Create a branch', 'git switch -c name', 'git checkout -b name'], ['Restore files', 'No (use git restore)', 'Yes (git checkout -- file)'], ['Clarity', 'Single purpose', 'Multiple purposes'], ['Minimum version', '2.23', 'All versions']],
+    example: 'git switch -c feature/x\ngit checkout -b feature/x   # older equivalent', diagram: 'checkout = switch + restore (+ more)' },
+  { id: 'clone-init', title: 'git clone vs git init', summary: 'init creates a new empty repository. clone copies an existing one with its history.',
+    cols: ['', 'git init', 'git clone'], rows: [['Starts with', 'No history', 'Full history of the source'], ['Remote configured', 'No', 'Yes (origin)'], ['Use when', 'Starting a new project', 'Joining an existing project'], ['Example', 'git init -b main', 'git clone <url>']],
+    example: 'git init -b main\ngit clone https://github.com/user/repo.git', diagram: 'init: [empty]\nclone: [remote history] -> [local copy]' },
+  { id: 'stash-commit', title: 'git stash vs git commit', summary: 'Both save work, but a commit is permanent, named history on a branch. A stash is a temporary shelf that is not part of any branch.',
+    cols: ['', 'git stash', 'git commit'], rows: [['Part of branch history', 'No', 'Yes'], ['Can be pushed', 'No (local only)', 'Yes'], ['Best for', 'Quick context switch', 'Completed units of work'], ['Message required', 'Optional', 'Yes'], ['Example', 'git stash push -m "wip"', 'git commit -m "Add filter"']],
+    example: 'git stash push -m "wip"\ngit switch main\ngit stash pop', diagram: 'commit: branch grows\nstash:  side shelf (refs/stash)' },
+  { id: 'pull-rebase', title: 'git pull --rebase vs normal git pull', summary: 'Normal pull merges upstream changes into your branch (possibly creating a merge commit). pull --rebase replays your local commits on top of upstream.',
+    cols: ['', 'git pull (merge)', 'git pull --rebase'], rows: [['Creates merge commit', 'Possibly', 'No'], ['History', 'Branching', 'Linear'], ['Rewrites your local commits', 'No', 'Yes (new IDs, unpushed ones)'], ['Config', 'pull.rebase=false', 'pull.rebase=true']],
+    example: 'git pull --rebase\ngit config --global pull.rebase true', diagram: 'merge:  local commits + M\nrebase: upstream + local commits\'' },
+];

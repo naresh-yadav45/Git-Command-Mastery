@@ -1,0 +1,28 @@
+export interface Term { term: string; group: 'Basics' | 'Branches & history' | 'Remotes' | 'Internals'; def: string; cmds: string[] }
+
+export const glossary: Term[] = [
+  { term: 'Repository', group: 'Basics', def: 'A project folder plus its .git directory, which stores the complete history, branches and tags.', cmds: ['init', 'clone'] },
+  { term: 'Commit', group: 'Basics', def: 'A saved snapshot of your project with an author, a message and a pointer to its parent commit(s).', cmds: ['commit', 'log', 'show'] },
+  { term: 'Working Tree', group: 'Basics', def: 'The files you see and edit on disk. Also called the working directory.', cmds: ['status', 'restore'] },
+  { term: 'Index', group: 'Basics', def: 'The file (.git/index) that records what will go into the next commit. Also called the staging area or cache.', cmds: ['add', 'ls-files', 'update-index'] },
+  { term: 'Staging Area', group: 'Basics', def: 'Another name for the index: the place where you assemble the next commit.', cmds: ['add', 'restore'] },
+  { term: 'Clone', group: 'Basics', def: 'A full copy of a repository, including its history, created with git clone.', cmds: ['clone'] },
+  { term: 'Branch', group: 'Branches & history', def: 'A movable pointer to a commit. When you commit on a branch, the pointer moves forward.', cmds: ['branch', 'switch'] },
+  { term: 'HEAD', group: 'Branches & history', def: 'A pointer to what you currently have checked out, usually a branch, which in turn points at a commit.', cmds: ['symbolic-ref', 'rev-parse', 'switch'] },
+  { term: 'Detached HEAD', group: 'Branches & history', def: 'A state where HEAD points directly at a commit instead of a branch. New commits are easy to lose unless you create a branch.', cmds: ['switch', 'checkout', 'reflog'] },
+  { term: 'Merge', group: 'Branches & history', def: 'Combining the history of two branches. It either fast-forwards or creates a merge commit with two parents.', cmds: ['merge'] },
+  { term: 'Fast-forward', group: 'Branches & history', def: 'A merge where the current branch has no new commits, so Git simply moves its pointer forward.', cmds: ['merge', 'pull'] },
+  { term: 'Conflict', group: 'Branches & history', def: 'What happens when Git cannot combine changes automatically because both sides edited the same lines.', cmds: ['merge', 'rebase', 'mergetool'] },
+  { term: 'Rebase', group: 'Branches & history', def: 'Re-applying commits on top of a different base, creating new commits with new IDs and a linear history.', cmds: ['rebase'] },
+  { term: 'Cherry-pick', group: 'Branches & history', def: 'Copying the change introduced by one commit onto another branch as a new commit.', cmds: ['cherry-pick'] },
+  { term: 'Tag', group: 'Branches & history', def: 'A fixed name for a commit, usually marking a release such as v1.0.0.', cmds: ['tag', 'describe'] },
+  { term: 'Remote', group: 'Remotes', def: 'A named reference to another repository, such as origin.', cmds: ['remote', 'fetch', 'push'] },
+  { term: 'Origin', group: 'Remotes', def: 'The default name Git gives to the remote you cloned from. It is only a name, not a special server.', cmds: ['clone', 'remote'] },
+  { term: 'Upstream', group: 'Remotes', def: 'The remote branch your local branch tracks. It is used by git pull and git push without arguments. In fork workflows "upstream" also commonly names the original repository.', cmds: ['push', 'pull', 'remote'] },
+  { term: 'Fork', group: 'Remotes', def: 'A copy of a repository under your own account on a hosting service. Forking is a hosting-platform feature, not a Git command.', cmds: ['clone', 'remote'] },
+  { term: 'Object', group: 'Internals', def: 'Anything stored in the Git database: a blob, tree, commit or tag.', cmds: ['cat-file', 'hash-object'] },
+  { term: 'Blob', group: 'Internals', def: 'An object that stores the content of one file, with no name.', cmds: ['hash-object', 'cat-file'] },
+  { term: 'Tree', group: 'Internals', def: 'An object that lists file names and subdirectories, each pointing to a blob or another tree.', cmds: ['ls-tree', 'write-tree'] },
+  { term: 'SHA', group: 'Internals', def: 'The hash that identifies an object, computed from its content. SHA-1 IDs have 40 hex characters; SHA-256 repositories use longer ones.', cmds: ['rev-parse', 'hash-object'] },
+  { term: 'Ref', group: 'Internals', def: 'A name (like refs/heads/main or refs/tags/v1.0) that points to an object ID.', cmds: ['update-ref', 'for-each-ref', 'show-ref'] },
+];
